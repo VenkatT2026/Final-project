@@ -5,3 +5,8 @@
 .Rdata
 .httr-oauth
 .DS_Store
+
+/.quarto/
+
+*_publish.yml
+*Rproj
