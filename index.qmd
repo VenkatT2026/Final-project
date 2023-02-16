@@ -1,5 +1,5 @@
 ---
-title: "Final-project"
+title: "Youtube Subscriber Count Comparison (2020-ish)"
 ---
 
 
@@ -9,27 +9,29 @@ title: "Final-project"
 #| warning: false
 
 library(tidyverse)
-library(tidycensus)
-library(leaflet)
-
-dallas_bachelors <- read_rds("data/dallas.rds")
+library(dbplyr)
+library(janitor)
 
 
-pal <- colorNumeric(
-  palette = "magma",
-  domain = dallas_bachelors$estimate
-)
-
-leaflet() %>%
-  addProviderTiles(providers$Stamen.TonerLite) %>%
-  addPolygons(data = dallas_bachelors,
-              color = ~pal(estimate),
-              weight = 0.5,
-              smoothFactor = 0.2,
-              fillOpacity = 0.5,
-              label = ~estimate) %>%
-  addLegend(position = "bottomright",
-            pal = pal,
-            values = dallas_bachelors$estimate,
-            title = "% with bachelor's<br/>degree")
 ```
+
+```{r} 
+#| echo: false
+#| message: false
+#| warning: false
+youtube_raw <- read_csv("most_subscribed_youtube_channels.csv")
+
+youtube <- youtube_raw |>
+  slice(1:10) |>
+  select(Youtuber, subscribers)|>
+  ggplot(mapping = aes(x = Youtuber, 
+                      y = subscribers)) + 
+                      geom_col(width = 0.5, position = "dodge", fill = "blue") 
+
+Sys.Date() + runif(n = 1, min = 365*5, max = 365*10)
+
+  
+youtube
+```
+youtube being one of the most popular social media sites for watching videos. There is millions of content creators, making vidoes for us. This is the graph and as we can see T-Series is the most Subscribed. T-series has over 200 million and Cocomelon at around 150 million. There are also many categories such as YouTube Movies and Music. Lets wait and see who gets 500 million first.
+
